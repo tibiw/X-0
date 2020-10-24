@@ -34,7 +34,7 @@ struct Home: View {
                     }
                     .frame(width: getWidth(), height: getWidth())
                     .cornerRadius(15)
-                    rotation3DEffect(
+                    .rotation3DEffect(
                         .init(degrees: moves[index] != "" ? 180 : 0),
                         axis: (x: 0.0, y: 1.0, z: 0.0),
                         anchor: .center,
@@ -51,7 +51,7 @@ struct Home: View {
                     })
                 }
             }
-            .padding()
+            .padding(15)
         }
         .onChange(of: moves, perform: { value in
             checkWinner()
@@ -76,7 +76,7 @@ struct Home: View {
         let width = UIScreen.main.bounds.width - (30 + 30)
         return width / 3
     }
-    
+
     // MARK: Checking for winner
     func checkWinner() {
         if checkMoves(player: "X") {
@@ -87,18 +87,18 @@ struct Home: View {
             gameOver.toggle()
         } else {
             // checking no moves
-            
+
             let status = moves.contains { (value) -> Bool in
                 return value == ""
             }
-            
+
             if !status {
                 message = "Game Over Tied !"
                 gameOver.toggle()
             }
         }
     }
-    
+
     func checkMoves(player: String) -> Bool {
         // horizontal moves
         for i in stride(from: 0, to: 9, by: 3) {
@@ -106,14 +106,14 @@ struct Home: View {
                 return true
             }
         }
-        
+
         // vertical moves
         for i in 0...2 {
             if moves[i] == player && moves[i + 3] == player && moves[i + 6] == player {
                 return true
             }
         }
-        
+
         // checking diagonal
         if moves[0] == player && moves[4] == player && moves[8] == player {
             return true
